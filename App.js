@@ -14,9 +14,9 @@ var firebaseConfig = {
   messagingSenderId: "406389826978",
   appId: "1:406389826978:web:c6260bc078fee5f2e17efb",
 };
-
-firebase.initializeApp(firebaseConfig);
-
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 import Welcome from "./screens/Welcome";
 import Loading from "./screens/Loading";
 import Login from "./screens/Login";
@@ -29,18 +29,18 @@ const HomeStack = createStackNavigator();
 
 const AuthStackScreens = () => (
   <AuthStack.Navigator>
-    <AuthStack.Screen name="Loading" component={Loading} />
-    <AuthStack.Screen name="Welcome" component={Welcome} />
-    <AuthStack.Screen name="Login" component={Login} />
-    <AuthStack.Screen name="Signup" component={Signup} />
-    <AuthStack.Screen name="Home" component={HomeStackScreens} />
+    <AuthStack.Screen options={{ headerShown: false }} name="Loading" component={Loading} />
+    <AuthStack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
+    <AuthStack.Screen options={{ headerShown: false }} name="Login" component={Login} />
+    <AuthStack.Screen options={{ headerShown: false }} name="Signup" component={Signup} />
+    <AuthStack.Screen options={{ headerShown: false }} name="Home" component={HomeStackScreens} />
   </AuthStack.Navigator>
 );
 
 const HomeStackScreens = () => (
   <HomeStack.Navigator>
-    <HomeStack.Screen name="Home" component={Home} />
-    <HomeStack.Screen name="Profile" component={Profile} />
+    <HomeStack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+    <HomeStack.Screen options={{ headerShown: false }} name="Profile" component={Profile} />
   </HomeStack.Navigator>
 );
 

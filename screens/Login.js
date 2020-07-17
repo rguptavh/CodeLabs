@@ -52,7 +52,6 @@ const Login = ({ navigation }) => {
           }}
         />
       </View>
-
     </View>
   );
 };
@@ -68,9 +67,6 @@ const styles = StyleSheet.create({
     margin:'1%', 
     backgroundColor:'white', 
     padding:'1%'
-  },
-  error: {
-    color: "red",
   },
 });
 

@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 
 const Welcome = ({ navigation }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Welcome!</Text>
       <Button
         title="Login"
@@ -20,5 +20,15 @@ const Welcome = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default Welcome;

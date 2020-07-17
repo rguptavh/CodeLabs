@@ -9,21 +9,24 @@ import Item from "../components/Item";
 const peopleData = [
   {
     id: "1",
-    // image: null,
+    image:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     name: "Vatsal Mehta",
-    relation: "friend",
+    relation: "Friend",
   },
   {
     id: "2",
-    // image: null,
+    image:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     name: "Ewemiz Insigne",
-    relation: "friend",
+    relation: "Friend",
   },
   {
     id: "3",
-    // image: null,
+    image:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
     name: "Rahul Gupta",
-    relation: "friend",
+    relation: "Friend",
   },
 ];
 
@@ -45,10 +48,12 @@ export default class Home extends React.Component {
           }}
           style={styles.sliderImage}
         />
+        <Text>All People</Text>
         <FlatList
           data={peopleData}
           renderItem={this.renderItem}
           keyExtractor={(item) => item.id}
+          style={styles.peopleList}
         />
         <Button
           title="Take a photo"
@@ -63,7 +68,9 @@ export default class Home extends React.Component {
   }
 
   renderItem({ item }) {
-    return <Item name={item.name} relation={item.relation} />;
+    return (
+      <Item image={item.image} name={item.name} relation={item.relation} />
+    );
   }
 
   componentDidMount() {
@@ -113,6 +120,9 @@ const styles = StyleSheet.create({
   },
   sliderImage: {
     height: 200,
+    width: "100%",
+  },
+  peopleList: {
     width: "100%",
   },
 });

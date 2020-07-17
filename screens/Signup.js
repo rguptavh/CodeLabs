@@ -18,6 +18,7 @@ const Signup = ({ navigation }) => {
       <TextInput
         placeholder="Password"
         onChangeText={(password) => setPassword(password)}
+        secureTextEntry={true}
       />
       <Button
         title="Sign Up"

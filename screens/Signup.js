@@ -10,26 +10,38 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Create an account</Text>
-      <TextInput
-        placeholder="Email"
-        onChangeText={(email) => setEmail(email)}
-      />
-      <TextInput
-        placeholder="Password"
-        onChangeText={(password) => setPassword(password)}
-        secureTextEntry={true}
-      />
-      <Button
-        title="Sign Up"
-        onPress={() => {
-          firebase
-            .auth()
-            .createUserWithEmailAndPassword(email.trim(), password)
-            .then((user) => navigation.navigate("Home", { screen: "Home" }))
-            .catch((error) => ErrorHandler(error));
-        }}
-      />
+      <View style={{marginBottom:'5%'}}>
+        <Text>Create an account</Text>
+      </View>
+      
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Email"
+            onChangeText={(email) => setEmail(email)}
+          />
+        </View>
+
+        <View style={styles.input}>
+          <TextInput
+            placeholder="Password"
+            onChangeText={(password) => setPassword(password)}
+            secureTextEntry={true}
+          />
+        </View>
+      
+      <View style={{marginTop:'5%'}}>
+        <Button
+          title="Sign Up"
+          color='#5867BA'
+          onPress={() => {
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(email.trim(), password)
+              .then((user) => navigation.navigate("Home", { screen: "Home" }))
+              .catch((error) => ErrorHandler(error));
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -37,10 +49,17 @@ const Signup = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#C591ED',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  
+  input:{
+    margin:'1%', 
+    backgroundColor:'white', 
+    padding:'1%'
+  }
+  
 });
 
 export default Signup;

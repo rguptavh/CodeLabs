@@ -1,22 +1,64 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app! test</Text>
-        <Text>Nextline</Text>
-      </View>
-    );
-  }
-}
+import * as firebase from "firebase";
+var firebaseConfig = {
+  apiKey: "AIzaSyDICOVCCTInIttbO5j0oXdcxdp7wBilTkg",
+  authDomain: "codelabs-f3f89.firebaseapp.com",
+  databaseURL: "https://codelabs-f3f89.firebaseio.com",
+  projectId: "codelabs-f3f89",
+  storageBucket: "codelabs-f3f89.appspot.com",
+  messagingSenderId: "406389826978",
+  appId: "1:406389826978:web:c6260bc078fee5f2e17efb",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+import Welcome from "./screens/Welcome";
+import Loading from "./screens/Loading";
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
+import Home from "./screens/Home";
+import Profile from "./screens/Profile";
+
+const AuthStack = createStackNavigator();
+const HomeStack = createStackNavigator();
+
+const AuthStackScreens = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen name="Loading" component={Loading} />
+    <AuthStack.Screen name="Welcome" component={Welcome} />
+    <AuthStack.Screen name="Login" component={Login} />
+    <AuthStack.Screen name="Signup" component={Signup} />
+    <AuthStack.Screen name="Home" component={HomeStackScreens} />
+  </AuthStack.Navigator>
+);
+
+const HomeStackScreens = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen name="Profile" component={Profile} />
+  </HomeStack.Navigator>
+);
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <AuthStackScreens />
+    </NavigationContainer>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default App;

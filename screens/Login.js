@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
           firebase
             .auth()
             .signInWithEmailAndPassword(email.trim(), password)
-            .then((user) => navigation.navigate("Home"))
+            // .then((user) => navigation.navigate("Home"))
             .catch((error) => ErrorHandler(error));
         }}
       />
@@ -41,12 +41,10 @@ const Login = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  error: {
-    color: "red",
   },
 });
 

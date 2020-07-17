@@ -26,7 +26,7 @@ const Signup = ({ navigation }) => {
           firebase
             .auth()
             .createUserWithEmailAndPassword(email.trim(), password)
-            .then((user) => navigation.navigate("Home", { screen: "Home" }))
+            // .then((user) => navigation.navigate("Home", { screen: "Home" }))
             .catch((error) => ErrorHandler(error));
         }}
       />

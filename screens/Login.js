@@ -52,7 +52,6 @@ const Login = ({ navigation }) => {
         >
           <Text>Sign-Up</Text>
         </TouchableOpacity>
-
     </View>
   );
 };
@@ -78,9 +77,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width:100,
     marginTop:70
-  },
-  error: {
-    color: "red",
   },
 });
 

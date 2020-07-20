@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5867BA",
     padding: 10,
     width:100
-  },
-  
+  }, 
 });
 
 export default Signup;

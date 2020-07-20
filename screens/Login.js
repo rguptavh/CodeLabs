@@ -53,7 +53,6 @@ const Login = ({ navigation }) => {
           <Text>Sign-Up</Text>
         </TouchableOpacity>
 
-
     </View>
   );
 };

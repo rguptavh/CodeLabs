@@ -1,35 +1,36 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity} from "react-native";
 
 const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Welcome!</Text>
+      <Text style={{marginBottom:40}}>Welcome!</Text>
 
       <View style={styles.rect}>
-          <Text>logo here</Text>
+         <Image
+          style={{width:100, height:100}}
+            source={require('../assets/logo.png')}
+         />
         </View>
       
       <View style={styles.button}>
-        <View style={styles.b1}>
-          <Button
-            title="Login"
-            color='#5867BA'
+          <TouchableOpacity
+            style={styles.b1}
             onPress={() => {
               navigation.navigate("Login");
             }}
-          />
-        </View>
+          >
+            <Text>Log-in</Text>
+          </TouchableOpacity>
         
-        <View style={styles.b2}>
-          <Button
-            title="Sign Up"
-            color='#5867BA'
+          <TouchableOpacity
+            style={styles.b2}
             onPress={() => {
               navigation.navigate("Signup");
             }}
-          />
-        </View>
+            >
+          <Text>Sign-up</Text>
+          </TouchableOpacity>
       </View>
 
     </View>
@@ -44,30 +45,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rect: {
-    width: '50%',
-    height: '30%',
+    width: 225,
+    height: 225,
     backgroundColor: '#A43D8D', alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '5%',
-    marginTop: '5%'
+    marginBottom: 5,
+    marginTop: 5,
   },
   button:{
     flexDirection:"row",
-    width:'100%',
-    /*backgroundColor:'white',*/
     alignItems: 'center',
     justifyContent: 'center',
-   /* 
-    width:'40%',
-    height: '4%',
-  */
+    marginTop:50
   },
   b1:{
     justifyContent: 'flex-start',
-    marginRight:'10%'
+    marginRight:50,
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: 10,
+    width:100
   },
   b2:{
     justifyContent: 'flex-end',
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: 10,
+    width:100
   }
 });
 

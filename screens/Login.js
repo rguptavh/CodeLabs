@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Button, StyleSheet, TextInput } from "react-native";
+import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 
 import ErrorHandler from "../components/ErrorHandler";
@@ -10,7 +10,7 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom:'5%'}}>
+      <View style={{marginBottom:-20}}>
         <Text>Login to your account</Text>
       </View>
     
@@ -29,10 +29,8 @@ const Login = ({ navigation }) => {
           />
         </View>
 
-      <View style={{marginTop:'5%'}}>
-        <Button
-          title="Login"
-          color='#5867BA'
+        <TouchableOpacity
+          style={styles.b1}
           onPress={() => {
             firebase
               .auth()
@@ -40,18 +38,20 @@ const Login = ({ navigation }) => {
               .then((user) => navigation.navigate("Home"))
               .catch((error) => ErrorHandler(error));
           }}
-        />
-      </View>
+        >
+          <Text>Log-in</Text>
+          </TouchableOpacity>
 
-      <View style={{marginTop:'3%'}}>
-        <Button
-          title="Sign up"
-          color='#5867BA'
+      <Text style={{marginTop:50, marginBottom:-55}}>Don't have an account yet? Sign-up!</Text>
+
+        <TouchableOpacity
+          style={styles.b1}
           onPress={() => {
             navigation.navigate("Signup");
           }}
-        />
-      </View>
+        >
+          <Text>Sign-Up</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -64,9 +64,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input:{
-    margin:'1%', 
+    justifyContent: 'center',
+    width:200,
+    height:50,
+    marginTop:80, 
     backgroundColor:'white', 
-    padding:'1%'
+    paddingLeft:17,
+  },
+  b1:{
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: 10,
+    width:100,
+    marginTop:70
   },
 });
 

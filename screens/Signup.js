@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Button, StyleSheet, TextInput } from "react-native";
+import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import * as firebase from "firebase";
 
 import ErrorHandler from "../components/ErrorHandler";
@@ -10,16 +10,15 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom:'5%'}}>
+      <View style={{marginBottom:100}}>
         <Text>Create an account</Text>
       </View>
-      
-        <View style={styles.input}>
+    
           <TextInput
+            style={styles.input}
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
           />
-        </View>
 
         <View style={styles.input}>
           <TextInput
@@ -28,11 +27,9 @@ const Signup = ({ navigation }) => {
             secureTextEntry={true}
           />
         </View>
-      
-      <View style={{marginTop:'5%'}}>
-        <Button
-          title="Sign Up"
-          color='#5867BA'
+    
+        <TouchableOpacity
+          style={styles.b1}
           onPress={() => {
             firebase
               .auth()
@@ -40,8 +37,9 @@ const Signup = ({ navigation }) => {
               .then((user) => navigation.navigate("Home", { screen: "Home" }))
               .catch((error) => ErrorHandler(error));
           }}
-        />
-      </View>
+        >
+          <Text>Sign up</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -55,10 +53,20 @@ const styles = StyleSheet.create({
   },
   
   input:{
-    margin:'1%', 
+    justifyContent: 'center',
+    width:200,
+    height:50,
+    marginBottom:100, 
     backgroundColor:'white', 
-    padding:'1%'
-  }
+    paddingLeft:17,
+  },
+
+  b1:{
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: 10,
+    width:100
+  },
   
 });
 

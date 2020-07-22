@@ -1,109 +1,132 @@
-import React from "react";
-import { Text, View, Button, Image, FlatList, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import { Text, View, Button, FlatList, Image, StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import Item from "../components/Item";
 
-const peopleData = [
-  {
-    id: "1",
-    image:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    name: "Vatsal Mehta",
-    relation: "Friend",
-  },
-  {
-    id: "2",
-    image:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    name: "Ewemiz Insigne",
-    relation: "Friend",
-  },
-  {
-    id: "3",
-    image:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
-    name: "Rahul Gupta",
-    relation: "Friend",
-  },
-];
+const getPeople = async () => {
+  let people = [];
+  try {
+    people = await AsyncStorage.getItem("people");
+    // console.log("People gotten HomeScreen: " + people);
+    // console.log(people.map((person) => JSON.parse(person)));
+    people != null ? (people = JSON.parse(people)) : (people = []);
+  } catch (error) {
+    console.log("Error: " + error);
+  }
+  return people;
+};
 
-export default class Home extends React.Component {
-  state = {
-    image: null,
-  };
+const renderItem = ({ item }) => {
+  return (
+    <Item image={item.image.uri} name={item.name} relation={item.relation} />
+  );
+};
 
-  render() {
-    let { image } = this.state;
+const getPermissionAsync = async () => {
+  if (Constants.platform.ios) {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+    }
+  }
+};
 
-    return (
-      <View style={styles.container}>
-        <Text>Home</Text>
-        <Image
-          source={{
-            uri:
-              "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-          }}
-          style={styles.sliderImage}
-        />
-        <Text>All People</Text>
+// const _pickImage = async ({ navigation }) => {
+//   try {
+//     let result = await ImagePicker.launchCameraAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//       allowsEditing: true,
+//       aspect: [1, 1],
+//       quality: 1,
+//     });
+//     if (!result.cancelled) {
+//       navigation.navigate("AddPerson", {
+//         uri: result.uri,
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+const Home = ({ navigation }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const refreshList = navigation.addListener("focus", () => {
+      getPeople().then((value) => {
+        // console.log("Previous State Data: ");
+        // console.log(data);
+        // console.log("Data Received from Storage: ");
+        // console.log(value);
+        if (value != data) {
+          setData(value);
+        }
+      });
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    getPermissionAsync();
+    // const clearAll = async () => {
+    //   await AsyncStorage.removeItem("people");
+    //   console.log("Cleared people!");
+    // };
+    // clearAll();
+  }, []);
+
+  // console.log("Current Data: ");
+  // console.log(data);
+
+  return (
+    <View style={styles.container}>
+      <Text>Home</Text>
+      <Image
+        source={{
+          uri:
+            "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        }}
+        style={styles.sliderImage}
+      />
+      <Text>All People</Text>
+      {data != [] ? (
         <FlatList
-          data={peopleData}
-          renderItem={this.renderItem}
-          keyExtractor={(item) => item.id}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => data.indexOf(item).toString()}
           style={styles.peopleList}
         />
-        <Button
-          title="Take a photo"
-          onPress={this._pickImage}
-          style={styles.cameraButton}
-        />
-        {/* {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-        )} */}
-      </View>
-    );
-  }
-
-  renderItem({ item }) {
-    return (
-      <Item image={item.image} name={item.name} relation={item.relation} />
-    );
-  }
-
-  componentDidMount() {
-    this.getPermissionAsync();
-  }
-
-  getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
-      }
-    }
-  };
-
-  _pickImage = async () => {
-    try {
-      let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 1,
-      });
-      if (!result.cancelled) {
-        this.setState({ image: result.uri });
-      }
-
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
+      ) : (
+        false
+      )}
+      <Button
+        title="Take a photo"
+        onPress={async () => {
+          try {
+            let result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsEditing: true,
+              aspect: [1, 1],
+              quality: 1,
+            });
+            if (!result.cancelled) {
+              navigation.navigate("AddPerson", {
+                uri: result.uri,
+              });
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }}
+        style={styles.cameraButton}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -126,3 +149,5 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+export default Home;

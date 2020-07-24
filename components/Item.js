@@ -1,13 +1,17 @@
 import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Item = (props) => {
+  const navigation = useNavigation();
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ViewPerson", { uri: props.image })}
+    >
       <Image source={{ uri: props.image }} style={styles.personPhoto} />
       <Text>{props.name}</Text>
       <Text>{props.relation}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

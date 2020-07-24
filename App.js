@@ -27,6 +27,7 @@ import Signup from "./screens/Signup";
 import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import AddPerson from "./screens/AddPerson";
+import ViewPerson from "./screens/ViewPerson";
 
 const AuthStack = createStackNavigator();
 const HomeStack = createDrawerNavigator();
@@ -81,6 +82,15 @@ const HomeStackScreens = () => (
       }}
       name="AddPerson"
       component={AddPerson}
+    />
+    <HomeStack.Screen
+      options={{
+        // headerShown: false,
+        drawerLabel: () => null,
+        drawerIcon: () => null,
+      }}
+      name="ViewPerson"
+      component={ViewPerson}
     />
   </HomeStack.Navigator>
 );

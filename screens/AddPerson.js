@@ -5,17 +5,13 @@ import AsyncStorage from "@react-native-community/async-storage";
 const storePersonData = async (person, navigation) => {
   try {
     let people = await AsyncStorage.getItem("people");
-    // console.log("People gotten: " + people);
 
     if (people === null) {
       await AsyncStorage.setItem("people", JSON.stringify([person]));
     } else {
-      // console.log("People: " + people);
       people = JSON.parse(people);
-      // console.log("JSON parsed people: " + people);
       people.push(person);
-      // console.log("Person added to people: " + people);
-      // console.log("Stringified people: " + JSON.stringify(people));
+
       await AsyncStorage.removeItem("people");
       await AsyncStorage.setItem("people", JSON.stringify(people));
     }
@@ -31,9 +27,6 @@ const AddPerson = ({ route, navigation }) => {
   const [name, setName] = useState("");
   const [relation, setRelation] = useState("");
   const [notes, setNotes] = useState("");
-
-  // const { chosenPhoto } = route.params;
-  // console.log(route.params);
 
   const image = route.params;
 

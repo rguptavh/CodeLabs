@@ -99,6 +99,7 @@ const HomeStackScreens = () => (
 
   let [fontsLoaded] = useFonts({
     'RobotoBlack': require('./assets/fonts/Roboto-Black.ttf'),
+    'Roboto': require('./assets/fonts/Roboto-Regular.ttf')
   });
 
     return (

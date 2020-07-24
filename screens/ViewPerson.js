@@ -45,19 +45,24 @@ const ViewPerson = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        style={styles.b1}
         onPress={() => {
           setPerson({});
           navigation.navigate("Home");
         }}
       >
-        <Text style={{ color: "blue" }}> Back to Home</Text>
+        <Text style={styles.b1_type}>Back to Home</Text>
       </TouchableOpacity>
-      <Text>View Person</Text>
+
+      <Text style={styles.title}>View Person</Text>
       <Image source={person.image} style={styles.mainImage} />
-      <Text>Name: {person.name}</Text>
-      <Text>Relation: {person.relation}</Text>
-      <Text>Notes: {person.notes}</Text>
+      <Text style={styles.type}>This looks like {person.name}</Text>
+      <Text style={styles.type}>This is your {person.relation}.</Text>
+      <Text></Text>
+      <Text style={styles.type}>Notes:</Text>
+      <Text style={styles.type}>{person.notes}</Text>
     </View>
+    
   );
 };
 
@@ -65,13 +70,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: '#C591ED',
     alignItems: "center",
     justifyContent: "center",
   },
+
   mainImage: {
-    height: 200,
-    width: "100%",
+    height: 300,
+    width: 300,
+    margin:'10%'
+  },
+
+  title:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:25,
+    marginTop:'10%',
+  },
+
+  type:{
+    color:'white', 
+    fontFamily:'Roboto', 
+    letterSpacing:1,
+    fontSize:15,
+//    marginTop:'7%',
+//    marginBottom:'2%'
+    marginVertical:'1%'
+  },
+
+  b1:{
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: '3%',
+    width:'45%',
+  },
+
+  b1_type:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
   },
 });
 

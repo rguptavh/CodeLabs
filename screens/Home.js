@@ -70,14 +70,16 @@ const Home = ({ navigation }) => {
       />
 
       <Text style={styles.list_title}>All People</Text>
-      
+
       {data != [] ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => data.indexOf(item).toString()}
-          style={styles.peopleList}
-        />
+        <View style={{flex:1, width:'110%', backgroundColor:'#A43D8D',}}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item) => data.indexOf(item).toString()}
+            style={styles.peopleList}
+          />
+        </View>
       ) : (
         false
       )}
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     fontFamily:'RobotoBlack', 
     letterSpacing:1,
     fontSize:20,
-    margin:'5%',
+    margin:'3%',
   },
   title:{
     color:'white', 
@@ -127,14 +129,13 @@ const styles = StyleSheet.create({
   header:{
     alignItems: "center",
     justifyContent: "center",
-    width:'110%',
-    height:'7%',
-    /* marginTop:-20, not really sure how to do this, have to look at other cellphone models */
+    width:'100%',
+    height:'9%',
+    paddingTop:'5%', //to be replaced with specific header size
     backgroundColor: "#A43D8D",
   },
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#C591ED",
     alignItems: "center",
     justifyContent: "center",
@@ -142,19 +143,21 @@ const styles = StyleSheet.create({
   cameraButton: {
     alignItems: "center",
     backgroundColor: "#5867BA",
-    padding: 15,
-    position: "absolute",
-    bottom: 0,
-    alignItems: "center",
+    width:'100%',
+    padding:'2%'
   },
   sliderImage: {
     height: 200,
-    width: "110%",
+    width: "100%",
   },
-  peopleList: {
+ /* peopleList: {
     width: "110%",
-    padding:10,
-    backgroundColor:'red',
+  },*/
+  type:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
   },
 });
 

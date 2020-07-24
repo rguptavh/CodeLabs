@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Image, StyleSheet, Button, TextInput } from "react-native";
+import { Text, View, Image, StyleSheet, Button, TextInput, TouchableOpacity} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const storePersonData = async (person, navigation) => {
@@ -32,23 +32,34 @@ const AddPerson = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Add a person</Text>
+      <Text style={styles.title}>Add a person</Text>
+
       <Image source={image} style={styles.personPhoto} />
-      <Text>This person looks new</Text>
-      <Text>What's their name?</Text>
-      <TextInput placeholder="Name" onChangeText={(name) => setName(name)} />
-      <Text>How are you related to them?</Text>
+
+      <Text style={styles.type}>This person looks new!</Text>
+
+      <Text style={styles.type}>What's their name?</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Name" 
+        onChangeText={(name) => setName(name)}/>
+
+      <Text style={styles.type}>How are you related to them?</Text>
       <TextInput
+        style={styles.input} 
         placeholder="Relation"
         onChangeText={(relation) => setRelation(relation)}
       />
-      <Text>Notes</Text>
+
+      <Text style={styles.type}>Notes</Text>
       <TextInput
+        style={styles.input} 
         placeholder="Notes"
         onChangeText={(notes) => setNotes(notes)}
       />
-      <Button
-        title="Add Person"
+
+      <TouchableOpacity
+        style={styles.b1}
         onPress={() =>
           storePersonData(
             {
@@ -59,8 +70,9 @@ const AddPerson = ({ route, navigation }) => {
             },
             navigation
           )
-        }
-      />
+        }>
+          <Text style={styles.b1_type}>Add Person</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -69,10 +81,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: '#C591ED',
     alignItems: "center",
     justifyContent: "center",
   },
+
+  title:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:25,
+    margin:'10%',
+  },
+
+  type:{
+    color:'white', 
+    fontFamily:'Roboto', 
+    letterSpacing:1,
+    fontSize:15,
+    marginTop:'7%',
+    marginBottom:'2%'
+  },
+
+  input:{
+    justifyContent: 'center',
+    width:'50%',
+    height:45,
+    backgroundColor:'white', 
+    paddingHorizontal:'5%',
+  },
+
+  b1:{
+    alignItems: "center",
+    backgroundColor: "#5867BA",
+    padding: '3%',
+    width:'35%',
+    margin:'10%',
+  },
+
+  b1_type:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
+  },
+
   personPhoto: {
     height: 200,
     width: 200,

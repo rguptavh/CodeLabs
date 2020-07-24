@@ -10,8 +10,8 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom:-20}}>
-        <Text>Login to your account</Text>
+      <View style={styles.blank}>
+        <Text style={styles.type} >Login to your account:</Text>
       </View>
     
       <View style={styles.input}>
@@ -39,10 +39,10 @@ const Login = ({ navigation }) => {
               .catch((error) => ErrorHandler(error));
           }}
         >
-          <Text>Log-in</Text>
+          <Text style={styles.type}>Log-in</Text>
           </TouchableOpacity>
 
-      <Text style={{marginTop:50, marginBottom:-55}}>Don't have an account yet? Sign-up!</Text>
+      <Text style={styles.type1}>Don't have an account yet? Sign-up!</Text>
 
         <TouchableOpacity
           style={styles.b1}
@@ -50,33 +50,48 @@ const Login = ({ navigation }) => {
             navigation.navigate("Signup");
           }}
         >
-          <Text>Sign-Up</Text>
+          <Text style={styles.type}>Sign-Up</Text>
         </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  type:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
+  },
+  type1:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
+    marginTop:'10%',
+  },
   container: {
     flex: 1,
     backgroundColor: '#C591ED',
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   input:{
     justifyContent: 'center',
-    width:200,
-    height:50,
-    marginTop:80, 
+    width:'50%',
+    height:'7%',
     backgroundColor:'white', 
-    paddingLeft:17,
+    paddingHorizontal:'4%',
+    marginVertical:'10%',
   },
+
   b1:{
     alignItems: "center",
     backgroundColor: "#5867BA",
     padding: 10,
-    width:100,
-    marginTop:70
+    padding: '3%',
+    width:'25%'
   },
 });
 

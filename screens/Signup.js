@@ -10,8 +10,8 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom:100}}>
-        <Text>Create an account</Text>
+      <View style={{marginBottom:'10%'}}>
+        <Text style={styles.type}>Create an account:</Text>
       </View>
     
           <TextInput
@@ -38,13 +38,20 @@ const Signup = ({ navigation }) => {
               .catch((error) => ErrorHandler(error));
           }}
         >
-          <Text>Sign up</Text>
+          <Text style={styles.type}>Sign up</Text>
         </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  type:{
+    color:'white', 
+    fontFamily:'RobotoBlack', 
+    letterSpacing:2,
+    fontSize:15,
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#C591ED',
@@ -54,18 +61,19 @@ const styles = StyleSheet.create({
   
   input:{
     justifyContent: 'center',
-    width:200,
-    height:50,
-    marginBottom:100, 
+    width:'50%',
+    height:'7%',
     backgroundColor:'white', 
-    paddingLeft:17,
+    paddingHorizontal:'4%',
+    marginVertical:'15%'
   },
 
   b1:{
+    marginTop:'10%',
     alignItems: "center",
     backgroundColor: "#5867BA",
-    padding: 10,
-    width:100
+    padding: '3%',
+    width:'25%'
   }, 
 });
 

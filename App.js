@@ -27,54 +27,65 @@ import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Home from "./screens/Home";
 import Profile from "./screens/Profile";
+import AddPerson from "./screens/AddPerson";
+
 export default function App() {
-  const AuthStack = createStackNavigator();
-  const HomeStack = createDrawerNavigator();
+const AuthStack = createStackNavigator();
+const HomeStack = createDrawerNavigator();
 
-  const AuthStackScreens = () => (
-    <AuthStack.Navigator>
-      <AuthStack.Screen
-        options={{ headerShown: false }}
-        name="Loading"
-        component={Loading}
-      />
-      <AuthStack.Screen
-        options={{ headerShown: false }}
-        name="Welcome"
-        component={Welcome}
-      />
-      <AuthStack.Screen
-        options={{ headerShown: false }}
-        name="Login"
-        component={Login}
-      />
-      <AuthStack.Screen
-        options={{ headerShown: false }}
-        name="Signup"
-        component={Signup}
-      />
-      <AuthStack.Screen
-        options={{ headerShown: false }}
-        name="Home"
-        component={HomeStackScreens}
-      />
-    </AuthStack.Navigator>
-  );
+const AuthStackScreens = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen
+      options={{ headerShown: false }}
+      name="Loading"
+      component={Loading}
+    />
+    <AuthStack.Screen
+      options={{ headerShown: false }}
+      name="Welcome"
+      component={Welcome}
+    />
+    <AuthStack.Screen
+      options={{ headerShown: false }}
+      name="Login"
+      component={Login}
+    />
+    <AuthStack.Screen
+      options={{ headerShown: false }}
+      name="Signup"
+      component={Signup}
+    />
+    <AuthStack.Screen
+      options={{ headerShown: false }}
+      name="Home"
+      component={HomeStackScreens}
+    />
+  </AuthStack.Navigator>
+);
 
-  const HomeStackScreens = () => (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        options={{ headerShown: false }}
-        name="Home"
-        component={Home}
-      />
-      <HomeStack.Screen
-        options={{ headerShown: false }}
-        name="Profile"
-        component={Profile}
-      />
-    </HomeStack.Navigator>
-  );
+const HomeStackScreens = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen
+      options={{ headerShown: false }}
+      name="Home"
+      component={Home}
+    />
+    <HomeStack.Screen
+      options={{ headerShown: false }}
+      name="Profile"
+      component={Profile}
+    />
+    <HomeStack.Screen
+      options={{
+        // headerShown: false,
+        drawerLabel: () => null,
+        drawerIcon: () => null,
+      }}
+      name="AddPerson"
+      component={AddPerson}
+    />
+  </HomeStack.Navigator>
+);
 
   let [fontsLoaded] = useFonts({
     'RobotoBlack': require('./assets/fonts/Roboto-Black.ttf'),

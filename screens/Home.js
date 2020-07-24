@@ -11,8 +11,7 @@ const getPeople = async () => {
   let people = [];
   try {
     people = await AsyncStorage.getItem("people");
-    // console.log("People gotten HomeScreen: " + people);
-    // console.log(people.map((person) => JSON.parse(person)));
+
     people != null ? (people = JSON.parse(people)) : (people = []);
   } catch (error) {
     console.log("Error: " + error);
@@ -35,34 +34,12 @@ const getPermissionAsync = async () => {
   }
 };
 
-// const _pickImage = async ({ navigation }) => {
-//   try {
-//     let result = await ImagePicker.launchCameraAsync({
-//       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-//       allowsEditing: true,
-//       aspect: [1, 1],
-//       quality: 1,
-//     });
-//     if (!result.cancelled) {
-//       navigation.navigate("AddPerson", {
-//         uri: result.uri,
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 const Home = ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const refreshList = navigation.addListener("focus", () => {
       getPeople().then((value) => {
-        // console.log("Previous State Data: ");
-        // console.log(data);
-        // console.log("Data Received from Storage: ");
-        // console.log(value);
         if (value != data) {
           setData(value);
         }
@@ -78,9 +55,6 @@ const Home = ({ navigation }) => {
     // };
     // clearAll();
   }, []);
-
-  // console.log("Current Data: ");
-  // console.log(data);
 
   return (
     <View style={styles.container}>

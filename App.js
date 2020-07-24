@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, AppLoading } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { useFonts } from 'expo-font';
 
 import * as firebase from "firebase";
 var firebaseConfig = {
@@ -29,6 +30,7 @@ import Profile from "./screens/Profile";
 import AddPerson from "./screens/AddPerson";
 import ViewPerson from "./screens/ViewPerson";
 
+export default function App() {
 const AuthStack = createStackNavigator();
 const HomeStack = createDrawerNavigator();
 
@@ -95,14 +97,16 @@ const HomeStackScreens = () => (
   </HomeStack.Navigator>
 );
 
-const App = () => {
-  return (
-    <NavigationContainer>
-      <AuthStackScreens />
-    </NavigationContainer>
-  );
-};
+  let [fontsLoaded] = useFonts({
+    'RobotoBlack': require('./assets/fonts/Roboto-Black.ttf'),
+  });
 
+    return (
+      <NavigationContainer>
+        <AuthStackScreens />
+      </NavigationContainer>
+    );
+}
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -112,4 +116,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;

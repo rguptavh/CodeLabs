@@ -23,7 +23,7 @@ const getPeople = async () => {
 
     people != null ? (people = JSON.parse(people)) : (people = []);
   } catch (error) {
-    console.log("Error: " + error);
+    //console.log("Error: " + error);
   }
   return people;
 };
@@ -44,7 +44,7 @@ const getPermissionAsync = async () => {
 };
 
 const uriToBlob = async (uri) => {
-  console.log("Blob start");
+  //console.log("Blob start");
   const blob = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -64,13 +64,13 @@ const uriToBlob = async (uri) => {
     xhr.open("GET", uri, true);
     xhr.send(null);
   });
-  console.log("Blob made");
+  //console.log("Blob made");
   return blob;
 };
 
 const findFace = async (image) => {
   try {
-    console.log("start res");
+    //console.log("start res");
     let res = await fetch(
       "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&recognitionModel=recognition_01&detectionModel=detection_01",
       {
@@ -83,9 +83,9 @@ const findFace = async (image) => {
       }
     );
     res = await res.json();
-    console.log("finish res");
-    console.log(res);
-    console.log("log after res log");
+    //console.log("finish res");
+    //console.log(res);
+    //console.log("log after res log");
 
     if (res.length != 0) {
       const id = res[0].faceId;
@@ -108,18 +108,18 @@ const findFace = async (image) => {
         }
       );
       person = await person.json();
-      console.log(person);
+      //console.log(person);
       if (person.error) {
-        console.log("Error Face");
+        //console.log("Error Face");
         return "New";
       }
-      console.log("Done");
+      //console.log("Done");
       return JSON.stringify(person) === JSON.stringify([])
         ? "New"
         : person[0].persistedFaceId;
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -140,7 +140,7 @@ const Home = ({ navigation }) => {
     getPermissionAsync();
     // const clearAll = async () => {
     //   await AsyncStorage.removeItem("people");
-    //   console.log("Cleared people!");
+    //   //console.log("Cleared people!");
     // };
     // clearAll();
   }, []);
@@ -186,38 +186,38 @@ const Home = ({ navigation }) => {
               quality: 1,
             });
             if (!result.cancelled) {
-              console.log(result);
+              //console.log(result);
               // const edited = editImage(result.uri);
-              console.log("Start m");
+              //console.log("Start m");
               const manipResult = await ImageManipulator.manipulateAsync(
                 result.uri,
                 [],
                 { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
               );
-              console.log("Manipulated");
+              //console.log("Manipulated");
 
               const blob = await uriToBlob(manipResult.uri);
 
               if (blob) {
-                console.log(blob);
-                console.log("Value exists");
+                //console.log(blob);
+                //console.log("Value exists");
                 const faceKnown = await findFace(blob);
-                console.log(faceKnown);
+                //console.log(faceKnown);
                 if (faceKnown === "New") {
-                  console.log("Navigating...");
+                  //console.log("Navigating...");
                   navigation.navigate("AddPerson", {
                     uri: result.uri,
                   });
                 } else {
                   let person = {};
-                  console.log(data);
+                  //console.log(data);
                   for (let i of data) {
                     if (i.persistedFaceId === faceKnown) {
                       person = i;
                       break;
                     }
                   }
-                  console.log(person);
+                  //console.log(person);
                   navigation.navigate("KnownPerson", {
                     uri: result.uri,
                     person: person,
@@ -243,7 +243,7 @@ const Home = ({ navigation }) => {
               // ]);
             }
           } catch (error) {
-            console.log(error);
+            //console.log(error);
           }
         }}
       >
@@ -252,11 +252,7 @@ const Home = ({ navigation }) => {
           source={require('../assets/cam.png')}
         />
         <Text style={styles.type}>Take a picture!</Text>
-      </TouchableOpacity>
-
-      <View style={styles.list_header}>
-        <Text style={styles.list_title}>All People</Text>
-      </View>    
+      </TouchableOpacity> 
   </View>
   );
 };

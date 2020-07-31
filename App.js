@@ -76,6 +76,7 @@ const HomeStackScreens = () => (
       name="Profile"
       component={Profile}
     />
+    
     <HomeStack.Screen
       options={{
         // headerShown: false,
@@ -99,6 +100,10 @@ const HomeStackScreens = () => (
 
   let [fontsLoaded] = useFonts({
     'RobotoBlack': require('./assets/fonts/Roboto-Black.ttf'),
+    'RobotoBold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'RobotoItalic': require('./assets/fonts/Roboto-Italic.ttf'),
+    'RobotoLight': require('./assets/fonts/Roboto-Light.ttf'),
+    'RobotoMedium': require('./assets/fonts/Roboto-Medium.ttf'),
     'Roboto': require('./assets/fonts/Roboto-Regular.ttf')
   });
 

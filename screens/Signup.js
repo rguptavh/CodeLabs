@@ -10,26 +10,23 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom:'10%'}}>
         <Text style={styles.type}>Create an account:</Text>
-      </View>
     
           <TextInput
             style={styles.input}
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
           />
-
-        <View style={styles.input}>
+        
           <TextInput
+            style={styles.input}
             placeholder="Password"
             onChangeText={(password) => setPassword(password)}
             secureTextEntry={true}
           />
-        </View>
     
         <TouchableOpacity
-          style={styles.b1}
+          style={styles.button}
           onPress={() => {
             firebase
               .auth()
@@ -38,43 +35,57 @@ const Signup = ({ navigation }) => {
               .catch((error) => ErrorHandler(error));
           }}
         >
-          <Text style={styles.type}>Sign up</Text>
+          <Text style={styles.button_type}>Sign-up</Text>
         </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  type:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
-  },
 
+  /*containers*/
   container: {
     flex: 1,
     backgroundColor: '#C591ED',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
-  input:{
-    justifyContent: 'center',
-    width:'50%',
-    height:'7%',
-    backgroundColor:'white', 
-    paddingHorizontal:'4%',
-    marginVertical:'15%'
+    
+  /*text*/
+  type:{
+    fontSize:20,
+    fontFamily:'RobotoItalic', 
+    color:'#FFF',
+    marginBottom:'10%', //for spacing
+  },
+  button_type:{
+    fontSize:23, 
+    fontFamily:'RobotoBlack', 
+    color:'#FFF', 
+    letterSpacing:2
   },
 
-  b1:{
-    marginTop:'10%',
-    alignItems: "center",
+  /*button*/
+  button:{
     backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
     padding: '3%',
-    width:'25%'
+    width:'35%',
+    marginTop: '10%' //for spacing
   }, 
+
+  /*input*/
+  input:{
+    backgroundColor:'white', 
+    justifyContent: 'center',
+    width:'60%',
+    height:60,
+    paddingHorizontal:'4%',
+    marginVertical:'15%',
+    fontSize:20
+  },
+
 });
 
 export default Signup;

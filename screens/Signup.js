@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import * as firebase from "firebase";
 
 import ErrorHandler from "../components/ErrorHandler";
@@ -10,33 +17,57 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={{ marginBottom: "10%" }}>
         <Text style={styles.type}>Create an account:</Text>
-    
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            onChangeText={(email) => setEmail(email)}
-          />
-        
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            onChangeText={(password) => setPassword(password)}
-            secureTextEntry={true}
-          />
-    
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(email.trim(), password)
-              .then((user) => navigation.navigate("Home", { screen: "Home" }))
-              .catch((error) => ErrorHandler(error));
-          }}
-        >
-          <Text style={styles.button_type}>Sign-up</Text>
-        </TouchableOpacity>
+      </View>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(email) => setEmail(email)}
+      />
+
+      <View style={styles.input}>
+        <TextInput
+          placeholder="Password"
+          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
+        />
+      </View>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email.trim(), password)
+            .then(async (user) => {
+              var data = { name: "email" };
+              try {
+                var res = await fetch(
+                  "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/facelists/" +
+                    "email",
+                  {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Ocp-Apim-Subscription-Key":
+                        "634cbfc0e0ef4a389d31e8ea87f19a23",
+                    },
+                    body: JSON.stringify(data),
+                  }
+                );
+              } catch (error) {
+                console.log(error);
+              }
+              global.email = email;
+              navigation.navigate("Home", { screen: "Home" });
+            })
+            .catch((error) => ErrorHandler(error));
+        }}
+      >
+        <Text style={styles.type}>Sign up</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -46,9 +77,9 @@ const styles = StyleSheet.create({
   /*containers*/
   container: {
     flex: 1,
-    backgroundColor: '#C591ED',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#C591ED",
+    alignItems: "center",
+    justifyContent: "center",
   },
     
   /*text*/

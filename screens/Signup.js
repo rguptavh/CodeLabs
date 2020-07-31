@@ -17,26 +17,23 @@ const Signup = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ marginBottom: "10%" }}>
         <Text style={styles.type}>Create an account:</Text>
-      </View>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(email) => setEmail(email)}
-      />
-
-      <View style={styles.input}>
-        <TextInput
-          placeholder="Password"
-          onChangeText={(password) => setPassword(password)}
-          secureTextEntry={true}
-        />
-      </View>
-
-      <TouchableOpacity
-        style={styles.button}
+    
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            onChangeText={(email) => setEmail(email)}
+          />
+        
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            onChangeText={(password) => setPassword(password)}
+            secureTextEntry={true}
+          />
+    
+        <TouchableOpacity
+        style={styles.b1}
         onPress={() => {
           firebase
             .auth()
@@ -73,7 +70,6 @@ const Signup = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-
   /*containers*/
   container: {
     flex: 1,

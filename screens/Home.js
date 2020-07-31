@@ -256,22 +256,8 @@ const Home = ({ navigation }) => {
 
       <View style={styles.list_header}>
         <Text style={styles.list_title}>All People</Text>
-      </View>
-
-      {data != [] ? (
-        <View style={{flex:1, width:'110%', backgroundColor:'#A43D8D',}}>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={(item) => data.indexOf(item).toString()}
-            style={styles.peopleList}
-          />
-        </View>
-      ) : (
-        false
-      )}
-      
-    </View>
+      </View>    
+  </View>
   );
 };
 

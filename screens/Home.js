@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-import { Text, View, FlatList, Image, StyleSheet, TouchableOpacity} from "react-native";
+import * as ImageManipulator from "expo-image-manipulator";
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import Item from "../components/Item";
@@ -31,6 +40,86 @@ const getPermissionAsync = async () => {
     if (status !== "granted") {
       alert("Sorry, we need camera roll permissions to make this work!");
     }
+  }
+};
+
+const uriToBlob = async (uri) => {
+  console.log("Blob start");
+  const blob = new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+      // return the blob
+      resolve(xhr.response);
+    };
+
+    xhr.onerror = function () {
+      // something went wrong
+      reject(new Error("uriToBlob failed"));
+    };
+
+    // this helps us get a blob
+    xhr.responseType = "blob";
+
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+  console.log("Blob made");
+  return blob;
+};
+
+const findFace = async (image) => {
+  try {
+    console.log("start res");
+    let res = await fetch(
+      "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&recognitionModel=recognition_01&detectionModel=detection_01",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/octet-stream",
+          "Ocp-Apim-Subscription-Key": "634cbfc0e0ef4a389d31e8ea87f19a23",
+        },
+        body: image,
+      }
+    );
+    res = await res.json();
+    console.log("finish res");
+    console.log(res);
+    console.log("log after res log");
+
+    if (res.length != 0) {
+      const id = res[0].faceId;
+      const data = {
+        faceId: id,
+        FaceListId: "email",
+        maxNumOfCandidatesReturned: 1,
+        mode: "matchPerson",
+      };
+
+      let person = await fetch(
+        "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/findsimilars",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": "634cbfc0e0ef4a389d31e8ea87f19a23",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      person = await person.json();
+      console.log(person);
+      if (person.error) {
+        console.log("Error Face");
+        return "New";
+      }
+      console.log("Done");
+      return JSON.stringify(person) === JSON.stringify([])
+        ? "New"
+        : person[0].persistedFaceId;
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -72,7 +161,7 @@ const Home = ({ navigation }) => {
       <Text style={styles.list_title}>All People</Text>
 
       {data != [] ? (
-        <View style={{flex:1, width:'110%', backgroundColor:'#A43D8D',}}>
+        <View style={{ flex: 1, width: "110%", backgroundColor: "#A43D8D" }}>
           <FlatList
             data={data}
             renderItem={renderItem}
@@ -89,23 +178,75 @@ const Home = ({ navigation }) => {
           try {
             let result = await ImagePicker.launchCameraAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsEditing: true,
-              aspect: [1, 1],
+              // allowsEditing: true,
+              // aspect: [1, 1],
               quality: 1,
             });
             if (!result.cancelled) {
-              navigation.navigate("AddPerson", {
-                uri: result.uri,
-              });
+              console.log(result);
+              // const edited = editImage(result.uri);
+              console.log("Start m");
+              const manipResult = await ImageManipulator.manipulateAsync(
+                result.uri,
+                [],
+                { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+              );
+              console.log("Manipulated");
+
+              const blob = await uriToBlob(manipResult.uri);
+
+              if (blob) {
+                console.log(blob);
+                console.log("Value exists");
+                const faceKnown = await findFace(blob);
+                console.log(faceKnown);
+                if (faceKnown === "New") {
+                  console.log("Navigating...");
+                  navigation.navigate("AddPerson", {
+                    uri: result.uri,
+                  });
+                } else {
+                  let person = {};
+                  console.log(data);
+                  for (let i of data) {
+                    if (i.persistedFaceId === faceKnown) {
+                      person = i;
+                      break;
+                    }
+                  }
+                  console.log(person);
+                  navigation.navigate("KnownPerson", {
+                    uri: result.uri,
+                    person: person,
+                  });
+                }
+              }
+
+              // Alert.alert("", "Do you know this person?", [
+              //   {
+              //     text: "Yes",
+              //     onPress: () =>
+              //       navigation.navigate("KnownPerson", {
+              //         uri: result.uri,
+              //       }),
+              //   },
+              //   {
+              //     text: "No",
+              //     onPress: () =>
+              //       navigation.navigate("AddPerson", {
+              //         uri: result.uri,
+              //       }),
+              //   },
+              // ]);
             }
           } catch (error) {
             console.log(error);
           }
-        }}  
+        }}
       >
         <Image
-          style={{width:40, height:40}}
-          source={require('../assets/cam.png')}
+          style={{ width: 40, height: 40 }}
+          source={require("../assets/cam.png")}
         />
       </TouchableOpacity>
     </View>
@@ -113,25 +254,25 @@ const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  list_title:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:1,
-    fontSize:20,
-    margin:'3%',
+  list_title: {
+    color: "white",
+    fontFamily: "RobotoBlack",
+    letterSpacing: 1,
+    fontSize: 20,
+    margin: "3%",
   },
-  title:{
-    color:'white', 
-    fontFamily:'Roboto', 
-    letterSpacing:1,
-    fontSize:25,
+  title: {
+    color: "white",
+    fontFamily: "Roboto",
+    letterSpacing: 1,
+    fontSize: 25,
   },
-  header:{
+  header: {
     alignItems: "center",
     justifyContent: "center",
-    width:'100%',
-    height:'9%',
-    paddingTop:'5%', //to be replaced with specific header size
+    width: "100%",
+    height: "9%",
+    paddingTop: "5%", //to be replaced with specific header size
     backgroundColor: "#A43D8D",
   },
   container: {
@@ -143,21 +284,18 @@ const styles = StyleSheet.create({
   cameraButton: {
     alignItems: "center",
     backgroundColor: "#5867BA",
-    width:'100%',
-    padding:'2%'
+    width: "100%",
+    padding: "2%",
   },
   sliderImage: {
     height: 200,
     width: "100%",
   },
- /* peopleList: {
-    width: "110%",
-  },*/
-  type:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
+  type: {
+    color: "white",
+    fontFamily: "RobotoBlack",
+    letterSpacing: 2,
+    fontSize: 15,
   },
 });
 

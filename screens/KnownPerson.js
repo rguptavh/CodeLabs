@@ -38,7 +38,7 @@ const KnownPerson = ({ route, navigation }) => {
       <TouchableOpacity
         style={styles.b1}
         onPress={() => {
-          console.log("Memory added!");
+          //console.log("Memory added!");
           navigation.navigate("Home");
         }}
       >

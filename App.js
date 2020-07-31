@@ -30,7 +30,7 @@ import Profile from "./screens/Profile";
 import AddPerson from "./screens/AddPerson";
 import ViewPerson from "./screens/ViewPerson";
 import KnownPerson from "./screens/KnownPerson";
-
+console.disableYellowBox = true;
 export default function App() {
   const AuthStack = createStackNavigator();
   const HomeStack = createDrawerNavigator();
@@ -97,25 +97,6 @@ const HomeStackScreens = () => (
       options={{ headerShown: false }}
       name="Profile"
       component={Profile}
-    />
-    
-    <HomeStack.Screen
-      options={{
-        // headerShown: false,
-        drawerLabel: () => null,
-        drawerIcon: () => null,
-      }}
-      name="AddPerson"
-      component={AddPerson}
-    />
-    <HomeStack.Screen
-      options={{
-        // headerShown: false,
-        drawerLabel: () => null,
-        drawerIcon: () => null,
-      }}
-      name="ViewPerson"
-      component={ViewPerson}
     />
   </HomeStack.Navigator>
 );

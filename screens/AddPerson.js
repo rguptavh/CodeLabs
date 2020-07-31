@@ -38,10 +38,10 @@ const storePersonData = async (person, navigation) => {
       }
     );
     res = await res.json();
-    console.log(res);
+    //console.log(res);
     person["persistedFaceId"] = res.persistedFaceId;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 
   try {
@@ -56,11 +56,11 @@ const storePersonData = async (person, navigation) => {
       await AsyncStorage.removeItem("people");
       await AsyncStorage.setItem("people", JSON.stringify(people));
     }
-    console.log("Added Person!");
+    //console.log("Added Person!");
 
     navigation.navigate("Home");
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -68,7 +68,7 @@ const AddPerson = ({ route, navigation }) => {
   const [name, setName] = useState("");
   const [relation, setRelation] = useState("");
   const [notes, setNotes] = useState("");
-  console.log(route.params);
+  //console.log(route.params);
   const image = route.params;
 
   return (

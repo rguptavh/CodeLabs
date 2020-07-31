@@ -4,7 +4,7 @@ import { StyleSheet, View, AppLoading } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 import * as firebase from "firebase";
 var firebaseConfig = {
@@ -29,40 +29,62 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import AddPerson from "./screens/AddPerson";
 import ViewPerson from "./screens/ViewPerson";
+import KnownPerson from "./screens/KnownPerson";
 
 export default function App() {
-const AuthStack = createStackNavigator();
-const HomeStack = createDrawerNavigator();
+  const AuthStack = createStackNavigator();
+  const HomeStack = createDrawerNavigator();
 
-const AuthStackScreens = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen
-      options={{ headerShown: false }}
-      name="Loading"
-      component={Loading}
-    />
-    <AuthStack.Screen
-      options={{ headerShown: false }}
-      name="Welcome"
-      component={Welcome}
-    />
-    <AuthStack.Screen
-      options={{ headerShown: false }}
-      name="Login"
-      component={Login}
-    />
-    <AuthStack.Screen
-      options={{ headerShown: false }}
-      name="Signup"
-      component={Signup}
-    />
-    <AuthStack.Screen
-      options={{ headerShown: false }}
-      name="Home"
-      component={HomeStackScreens}
-    />
-  </AuthStack.Navigator>
-);
+  const AuthStackScreens = () => (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name="Loading"
+        component={Loading}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name="Welcome"
+        component={Welcome}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name="Login"
+        component={Login}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name="Signup"
+        component={Signup}
+      />
+      <AuthStack.Screen
+        options={{ headerShown: false }}
+        name="Home"
+        component={HomeStackScreens}
+      />
+      <AuthStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="AddPerson"
+        component={AddPerson}
+      />
+      <AuthStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="ViewPerson"
+        component={ViewPerson}
+      />
+      <AuthStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="KnownPerson"
+        component={KnownPerson}
+      />
+    </AuthStack.Navigator>
+  );
 
 const HomeStackScreens = () => (
   <HomeStack.Navigator>
@@ -107,11 +129,11 @@ const HomeStackScreens = () => (
     'Roboto': require('./assets/fonts/Roboto-Regular.ttf')
   });
 
-    return (
-      <NavigationContainer>
-        <AuthStackScreens />
-      </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <AuthStackScreens />
+    </NavigationContainer>
+  );
 }
 const styles = StyleSheet.create({
   container: {
@@ -121,4 +143,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-

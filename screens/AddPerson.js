@@ -101,7 +101,7 @@ const AddPerson = ({ route, navigation }) => {
       />
 
       <TouchableOpacity
-        style={styles.b1}
+        style={styles.button}
         onPress={() =>
           storePersonData(
             {
@@ -112,15 +112,15 @@ const AddPerson = ({ route, navigation }) => {
             },
             navigation
           )
-        }
-      >
-        <Text style={styles.b1_type}>Add Person</Text>
-      </TouchableOpacity>
+        }>
+          <Text style={styles.button_type}>Add Person</Text>
+        </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  /*containers*/
   container: {
     flex: 1,
     padding: 20,
@@ -128,51 +128,55 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  title: {
-    color: "white",
-    fontFamily: "RobotoBlack",
-    letterSpacing: 2,
-    fontSize: 25,
-    margin: "10%",
-  },
-
-  type: {
-    color: "white",
-    fontFamily: "Roboto",
-    letterSpacing: 1,
-    fontSize: 15,
-    marginTop: "7%",
-    marginBottom: "2%",
-  },
-
-  input: {
-    justifyContent: "center",
-    width: "50%",
-    height: 45,
-    backgroundColor: "white",
-    paddingHorizontal: "5%",
-  },
-
-  b1: {
-    alignItems: "center",
-    backgroundColor: "#5867BA",
-    padding: "3%",
-    width: "35%",
-    margin: "10%",
-  },
-
-  b1_type: {
-    color: "white",
-    fontFamily: "RobotoBlack",
-    letterSpacing: 2,
-    fontSize: 15,
-  },
-
   personPhoto: {
     height: 200,
     width: 200,
   },
+
+  /*text*/
+  title:{
+    fontSize:30, 
+    fontFamily:'RobotoBold', 
+    color:'#FFF',
+    letterSpacing:1,
+    marginVertical:'10%',
+  },
+  type:{
+    color:'white', 
+    fontFamily:'Roboto', 
+    fontSize:20,
+    marginVertical:'3%'
+  },
+  button_type:{
+    fontSize:23, 
+    fontFamily:'RobotoBlack', 
+    color:'#FFF', 
+    letterSpacing:2
+  },
+
+
+/*input*/
+  input:{
+    backgroundColor:'white', 
+    justifyContent: 'center',
+    width:'60%',
+    height:60,
+    paddingHorizontal:'4%',
+    marginVertical:'1%',
+    fontSize:20
+  },
+
+/*button*/
+  button:{
+    backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
+    padding: '3%',
+    width:'60%',
+    marginHorizontal:'3.5%',
+    marginVertical:'10%'
+},
+
 });
 
 export default AddPerson;

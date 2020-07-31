@@ -14,8 +14,8 @@ const Item = (props) => {
           </View>
 
           <View style={styles.col2}>
-            <Text style={styles.type}>Name: {props.name}</Text>
-            <Text style={styles.type}>Relationship: {props.relation}</Text>
+            <Text style={styles.type}>{props.name}</Text>
+            <Text style={styles.type}>{props.relation}</Text>
           </View>
         </TouchableOpacity>
   </View>
@@ -23,14 +23,15 @@ const Item = (props) => {
 };
 
 const styles = StyleSheet.create({
+  /*containers*/
   personPhoto: { 
-    height: 60, 
-    width: 60,
+    height: 100, 
+    width: 100,
     justifyContent: 'flex-start',
   },
   container:{
     flex: 1,
-    backgroundColor:"#A43D8D",
+    backgroundColor:"#C591ED",
     paddingHorizontal:'8%',
   },
   elements:{
@@ -41,17 +42,19 @@ const styles = StyleSheet.create({
   },
   col1:{
     padding:'3%',
-
   },
   col2:{
     justifyContent: 'center',
   },
+
+  /*text*/
   type:{
-    color:'white', 
-    fontFamily:'Roboto', 
-    letterSpacing:2,
-    fontSize:15,
+    color:'black', 
+    fontFamily:'RobotoBold', 
+    letterSpacing:1,
+    fontSize:23,
     justifyContent: 'flex-end',
+    margin:'3%',
   },
 });
 

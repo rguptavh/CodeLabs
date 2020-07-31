@@ -11,26 +11,26 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.blank}>
-        <Text style={styles.type} >Login to your account:</Text>
+        <Text style={styles.type} >Log-in to your account:</Text>
       </View>
     
-      <View style={styles.input}>
-          <TextInput
-            placeholder="Email"
-            onChangeText={(email) => setEmail(email)}
-          />
-        </View>
+   
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={(email) => setEmail(email)}
+        />
+       
 
-      <View style={styles.input}>
-          <TextInput
-            placeholder="Password"
-            onChangeText={(password) => setPassword(password)}
-            secureTextEntry={true}
-          />
-        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          onChangeText={(password) => setPassword(password)}
+          secureTextEntry={true}
+        />
 
         <TouchableOpacity
-          style={styles.b1}
+          style={styles.button}
           onPress={() => {
             firebase
               .auth()
@@ -39,37 +39,25 @@ const Login = ({ navigation }) => {
               .catch((error) => ErrorHandler(error));
           }}
         >
-          <Text style={styles.type}>Log-in</Text>
+          <Text style={styles.button_type}>Log-in</Text>
           </TouchableOpacity>
 
-      <Text style={styles.type1}>Don't have an account yet? Sign-up!</Text>
+      <Text style={[styles.type, styles.type_space]}>Don't have an account yet? Sign-up!</Text>
 
         <TouchableOpacity
-          style={styles.b1}
+          style={styles.button}
           onPress={() => {
             navigation.navigate("Signup");
           }}
         >
-          <Text style={styles.type}>Sign-Up</Text>
+          <Text style={styles.button_type}>Sign-up</Text>
         </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  type:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
-  },
-  type1:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
-    marginTop:'10%',
-  },
+  /*containers*/
   container: {
     flex: 1,
     backgroundColor: '#C591ED',
@@ -77,22 +65,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  input:{
-    justifyContent: 'center',
-    width:'50%',
-    height:'7%',
-    backgroundColor:'white', 
-    paddingHorizontal:'4%',
-    marginVertical:'10%',
+  /*text*/
+  type:{
+    fontSize:20,
+    fontFamily:'RobotoItalic', 
+    color:'#FFF',
+    //marginBottom:'10%', //for spacing
+  },
+  type_space:{
+    marginTop:'15%',
+    marginBottom:'5%'
+  },
+  button_type:{
+    fontSize:23, 
+    fontFamily:'RobotoBlack', 
+    color:'#FFF', 
+    letterSpacing:2
+  },
+  
+  /*button*/
+  button:{
+    backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
+    padding: '3%',
+    width:'35%',
   },
 
-  b1:{
-    alignItems: "center",
-    backgroundColor: "#5867BA",
-    padding: 10,
-    padding: '3%',
-    width:'25%'
+  /*input*/
+  input:{
+    backgroundColor:'white', 
+    justifyContent: 'center',
+    width:'60%',
+    height:60,
+    paddingHorizontal:'4%',
+    marginVertical:'10%',
+    fontSize:20
   },
+
+  
 });
 
 export default Login;

@@ -86,24 +86,47 @@ export default function App() {
     </AuthStack.Navigator>
   );
 
-  const HomeStackScreens = () => (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        options={{ headerShown: false }}
-        name="Home"
-        component={Home}
-      />
-      <HomeStack.Screen
-        options={{ headerShown: false }}
-        name="Profile"
-        component={Profile}
-      />
-    </HomeStack.Navigator>
-  );
+const HomeStackScreens = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen
+      options={{ headerShown: false }}
+      name="Home"
+      component={Home}
+    />
+    <HomeStack.Screen
+      options={{ headerShown: false }}
+      name="Profile"
+      component={Profile}
+    />
+    
+    <HomeStack.Screen
+      options={{
+        // headerShown: false,
+        drawerLabel: () => null,
+        drawerIcon: () => null,
+      }}
+      name="AddPerson"
+      component={AddPerson}
+    />
+    <HomeStack.Screen
+      options={{
+        // headerShown: false,
+        drawerLabel: () => null,
+        drawerIcon: () => null,
+      }}
+      name="ViewPerson"
+      component={ViewPerson}
+    />
+  </HomeStack.Navigator>
+);
 
   let [fontsLoaded] = useFonts({
-    RobotoBlack: require("./assets/fonts/Roboto-Black.ttf"),
-    Roboto: require("./assets/fonts/Roboto-Regular.ttf"),
+    'RobotoBlack': require('./assets/fonts/Roboto-Black.ttf'),
+    'RobotoBold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'RobotoItalic': require('./assets/fonts/Roboto-Italic.ttf'),
+    'RobotoLight': require('./assets/fonts/Roboto-Light.ttf'),
+    'RobotoMedium': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto': require('./assets/fonts/Roboto-Regular.ttf')
   });
 
   return (

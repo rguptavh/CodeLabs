@@ -150,6 +150,8 @@ const Home = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.title}>Home</Text>
       </View>
+
+      {/*
       <Image
         source={{
           uri:
@@ -157,6 +159,7 @@ const Home = ({ navigation }) => {
         }}
         style={styles.sliderImage}
       />
+      */}
 
       <Text style={styles.list_title}>All People</Text>
 
@@ -245,57 +248,80 @@ const Home = ({ navigation }) => {
         }}
       >
         <Image
-          style={{ width: 40, height: 40 }}
-          source={require("../assets/cam.png")}
+          style={{width:60, height:60}}
+          source={require('../assets/cam.png')}
         />
+        <Text style={styles.type}>Take a picture!</Text>
       </TouchableOpacity>
+
+      <View style={styles.list_header}>
+        <Text style={styles.list_title}>All People</Text>
+      </View>
+
+      {data != [] ? (
+        <View style={{flex:1, width:'110%', backgroundColor:'#A43D8D',}}>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item) => data.indexOf(item).toString()}
+            style={styles.peopleList}
+          />
+        </View>
+      ) : (
+        false
+      )}
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  list_title: {
-    color: "white",
-    fontFamily: "RobotoBlack",
-    letterSpacing: 1,
-    fontSize: 20,
-    margin: "3%",
-  },
-  title: {
-    color: "white",
-    fontFamily: "Roboto",
-    letterSpacing: 1,
-    fontSize: 25,
-  },
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    height: "9%",
-    paddingTop: "5%", //to be replaced with specific header size
-    backgroundColor: "#A43D8D",
-  },
+  /*containers*/
   container: {
     flex: 1,
-    backgroundColor: "#C591ED",
+    backgroundColor: "#C591ED", // "all people" background
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  header:{
+    backgroundColor: "#A43D8D",
+    alignItems: "center",
+    justifyContent: "center",
+    width:'100%',
+    height:'12%',
+    paddingTop:'5%', //to be replaced with specific header size
+  },
+  list_header:{
+    width:'100%',
+    backgroundColor:"#A43D8D",
     alignItems: "center",
     justifyContent: "center",
   },
   cameraButton: {
     alignItems: "center",
-    backgroundColor: "#5867BA",
-    width: "100%",
-    padding: "2%",
+    backgroundColor: "#C591ED",
+    width:'100%',
+    padding:'10%'
   },
-  sliderImage: {
-    height: 200,
-    width: "100%",
+  
+  /*text*/
+  title:{
+    fontSize:35, 
+    fontFamily:'Roboto', 
+    color:'#FFF',
+    letterSpacing:1
   },
-  type: {
-    color: "white",
-    fontFamily: "RobotoBlack",
-    letterSpacing: 2,
-    fontSize: 15,
+  list_title:{
+    color:'white', 
+    fontFamily:'RobotoBold', 
+    fontSize:20,
+    margin:'3%',
+  },
+  type:{
+    fontSize:20,
+    fontFamily:'RobotoItalic', 
+    color:'#FFF',
+    //marginBottom:'10%', //for spacing
   },
 });
 

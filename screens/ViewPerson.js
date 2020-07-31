@@ -45,21 +45,21 @@ const ViewPerson = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.b1}
+        style={styles.button}
         onPress={() => {
           setPerson({});
           navigation.navigate("Home");
         }}
       >
-        <Text style={styles.b1_type}>Back to Home</Text>
+        <Text style={styles.button_type}>Back to Home</Text>
       </TouchableOpacity>
 
       <Text style={styles.title}>View Person</Text>
       <Image source={person.image} style={styles.mainImage} />
-      <Text style={styles.type}>This looks like {person.name}</Text>
-      <Text style={styles.type}>This is your {person.relation}.</Text>
+      <Text style={styles.type}>This looks like <Text style={styles.bold}>{person.name}</Text>.</Text>
+      <Text style={styles.type}>This is your <Text style={styles.bold}>{person.relation}</Text>.</Text>
       <Text></Text>
-      <Text style={styles.type}>Notes:</Text>
+      <Text style={[styles.type,styles.bold]}>Notes:</Text>
       <Text style={styles.type}>{person.notes}</Text>
     </View>
     
@@ -67,6 +67,7 @@ const ViewPerson = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  /*containers*/
   container: {
     flex: 1,
     padding: 20,
@@ -74,43 +75,44 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
   mainImage: {
     height: 300,
     width: 300,
     margin:'10%'
   },
 
+  /*text*/
   title:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:25,
+    fontSize:30, 
+    fontFamily:'RobotoBold', 
+    color:'#FFF',
+    letterSpacing:1,
     marginTop:'10%',
   },
-
   type:{
     color:'white', 
     fontFamily:'Roboto', 
-    letterSpacing:1,
-    fontSize:15,
-//    marginTop:'7%',
-//    marginBottom:'2%'
+    fontSize:20,
     marginVertical:'1%'
   },
-
-  b1:{
-    alignItems: "center",
-    backgroundColor: "#5867BA",
-    padding: '3%',
-    width:'45%',
+  bold:{
+    fontFamily:'RobotoBold'
+  },
+  button_type:{
+    fontSize:23, 
+    fontFamily:'RobotoBlack', 
+    color:'#FFF', 
+    letterSpacing:2
   },
 
-  b1_type:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
+  /*button*/
+  button:{
+    backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
+    padding: '3%',
+    width:'60%',
+    marginHorizontal:'3.5%'
   },
 });
 

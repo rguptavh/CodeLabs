@@ -9,32 +9,32 @@ const wid = entireScreenWidth / 380;
 const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={{fontSize:(20*wid), color:'white', fontFamily:'RobotoBlack', letterSpacing:5}}>Welcome!</Text>
+      <Text style={styles.title}>Welcome!</Text>
 
-      <View style={styles.rect}>
+      <View style={styles.logo}>
          <Image
-          style={{width:100, height:100}}
+          style={{width:200, height:200}}
           source={require('../assets/logo.png')}
          />
         </View>
       
-      <View style={styles.button}>
+      <View style={styles.button_flex}>
           <TouchableOpacity
-            style={styles.b1}
+            style={[styles.button, styles.button_login]}
             onPress={() => {
               navigation.navigate("Login");
             }}
           >
-            <Text style={styles.type}>Log-in</Text>
+            <Text style={styles.button_type}>Log-in</Text>
           </TouchableOpacity>
         
           <TouchableOpacity
-            style={styles.b2}
+            style={[styles.button, styles.button_signup]}
             onPress={() => {
               navigation.navigate("Signup");
             }}
             >
-          <Text style={styles.type}>Sign-up</Text>
+          <Text style={styles.button_type}>Sign-up</Text>
           </TouchableOpacity>
       </View>
 
@@ -43,44 +43,51 @@ const Welcome = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  type:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2
-  },
+  /*containers*/
   container: {
     flex: 1,
     backgroundColor: '#C591ED',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rect: {
-    width: '50%',
-    height: '25%',
-    backgroundColor: '#A43D8D', alignItems: 'center',
+  logo: {
+    alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '20%',
     marginTop: '20%',
   },
-  button:{
+
+  /*text*/
+  title:{
+    fontSize:30, 
+    fontFamily:'RobotoBold', 
+    color:'#FFF',
+    letterSpacing:1
+  },
+  button_type:{
+    fontSize:23, 
+    fontFamily:'RobotoBlack', 
+    color:'#FFF', 
+    letterSpacing:2
+  },
+
+  /*buttons*/
+  button_flex:{
     flexDirection:"row",
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  b1:{
+  button:{
+    backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
+    padding: '3%',
+    width:'35%',
+    marginHorizontal:'3.5%'
+  },
+  button_login:{
     justifyContent: 'flex-start',
-    marginRight:'10%',
-    alignItems: "center",
-    backgroundColor: "#5867BA",
-    padding: '3%',
-    width:'25%'
   },
-  b2:{
+  button_signup:{
     justifyContent: 'flex-end',
-    alignItems: "center",
-    backgroundColor: "#5867BA",
-    padding: '3%',
-    width:'25%',
   }
 });
 

@@ -15,19 +15,19 @@ const Profile = ({ navigation }) => {
       <Text style={styles.title}>Profile Screen</Text>
 
       <TouchableOpacity
-        style={styles.b1}
+        style={styles.button}
         onPress={() => {
           navigation.navigate("Home");
         }}>
-        <Text style={styles.type}>Home</Text>
+        <Text style={styles.button_type}>Home</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.b1}
+        style={styles.button}
         onPress={() => {
           signOut();
         }}>
-        <Text style={styles.type}>Sign Out</Text>
+        <Text style={styles.button_type}>Sign Out</Text>
       </TouchableOpacity>
 
     </View>
@@ -35,6 +35,7 @@ const Profile = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  /*container*/
   container: {
     flex: 1,
     padding: 20,
@@ -42,25 +43,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  /*text*/
   title:{
-    color:'white', 
-    fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:25,
-    margin:'10%',
+    fontSize:30, 
+    fontFamily:'RobotoBold', 
+    color:'#FFF',
+    letterSpacing:1
   },
-  type:{
-    color:'white', 
+  button_type:{
+    fontSize:23, 
     fontFamily:'RobotoBlack', 
-    letterSpacing:2,
-    fontSize:15,
+    color:'#FFF', 
+    letterSpacing:2
   },
-  b1:{
-    alignItems: "center",
+
+  /*button*/
+  button:{
     backgroundColor: "#5867BA",
+    alignItems: "center",
+    borderRadius:50,
     padding: '3%',
-    width:'30%',
-    margin:'10%',
+    width:'45%',
+    marginVertical:'10%'
   },
 });
 
